@@ -1,0 +1,1 @@
+// Header de Cifrado Vigenère

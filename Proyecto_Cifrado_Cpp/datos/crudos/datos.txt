@@ -1,0 +1,3 @@
+usuario: juan123
+password: secreto123
+email: juan@mail.com
