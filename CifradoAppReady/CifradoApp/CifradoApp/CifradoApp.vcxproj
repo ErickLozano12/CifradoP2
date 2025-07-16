@@ -129,10 +129,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\CifradoCesar.cpp" />
+    <ClCompile Include="..\CifradoVigenere.cpp" />
     <ClCompile Include="..\CifradoXOR.cpp" />
     <ClCompile Include="..\main.cpp" />
     <ClCompile Include="CifradoApp.cpp" />
-    <ClCompile Include="CifradoVigenere.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\CifradoCesar.h" />

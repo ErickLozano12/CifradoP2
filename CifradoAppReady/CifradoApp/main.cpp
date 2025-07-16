@@ -4,8 +4,7 @@
 #include <filesystem>
 #include "CifradoCesar.h"
 #include "CifradoXOR.h"
-
-// Añadir futuros includes: Vigenere, etc.
+#include "CifradoVigenere.h"
 
 void mostrarMenu() {
     std::cout << "\n--- MENU DE CIFRADO ---\n";
@@ -14,7 +13,8 @@ void mostrarMenu() {
     std::cout << "3. Cifrado Vigenere\n";
     std::cout << "4. Descifrar Cesar\n";
     std::cout << "5. Descifrar XOR\n";
-    std::cout << "6. Salir\n";
+    std::cout << "6. Descifrar Vigenere\n";
+    std::cout << "7. Salir\n";
     std::cout << "Seleccione una opcion: ";
 }
 
@@ -41,8 +41,10 @@ int main() {
     std::string rutaEntrada = "../datos/crudos/datos.txt";
     std::string rutaSalidaCesar = "../datos/cifrados/datos_cifrados.txt";
     std::string rutaSalidaXOR = "../datos/cifrados/datos_cifrados_xor.txt";
+    std::string rutaSalidaVigenere = "../datos/cifrados/datos_cifrados_vigenere.txt";
     std::string rutaDescifradoCesar = "../datos/crudos/datos_descifrado.txt";
     std::string rutaDescifradoXOR = "../datos/crudos/datos_descifrado_xor.txt";
+    std::string rutaDescifradoVigenere = "../datos/crudos/datos_descifrado_vigenere.txt";
 
     int opcion;
     do {
@@ -60,7 +62,6 @@ int main() {
             resultado = CifradoCesar::cifrar(contenido, clave);
             std::cout << "\nTexto cifrado:\n" << resultado << "\n";
             guardarArchivo(rutaSalidaCesar, resultado);
-            std::cout << "Texto descifrado (verificación): \n" << CifradoCesar::descifrar(resultado, clave) << "\n";
             break;
         }
         case 2: {
@@ -72,12 +73,19 @@ int main() {
             resultado = CifradoXOR::cifrar(contenido, clave);
             std::cout << "\nTexto cifrado:\n" << resultado << "\n";
             guardarArchivo(rutaSalidaXOR, resultado);
-            std::cout << "Texto descifrado (verificación): \n" << CifradoXOR::descifrar(resultado, clave) << "\n";
             break;
         }
-        case 3:
-            std::cout << "[INFO] Cifrado Vigenere aun no implementado.\n";
+        case 3: {
+            contenido = leerArchivo(rutaEntrada);
+            if (contenido.empty()) break;
+            std::string clave;
+            std::cout << "Ingrese palabra clave para Vigenere: ";
+            std::cin >> clave;
+            resultado = CifradoVigenere::cifrar(contenido, clave);
+            std::cout << "\nTexto cifrado:\n" << resultado << "\n";
+            guardarArchivo(rutaSalidaVigenere, resultado);
             break;
+        }
         case 4: {
             contenido = leerArchivo(rutaSalidaCesar);
             if (contenido.empty()) break;
@@ -100,13 +108,24 @@ int main() {
             guardarArchivo(rutaDescifradoXOR, resultado);
             break;
         }
-        case 6:
+        case 6: {
+            contenido = leerArchivo(rutaSalidaVigenere);
+            if (contenido.empty()) break;
+            std::string clave;
+            std::cout << "Ingrese palabra clave para descifrado Vigenere: ";
+            std::cin >> clave;
+            resultado = CifradoVigenere::descifrar(contenido, clave);
+            std::cout << "\nTexto descifrado:\n" << resultado << "\n";
+            guardarArchivo(rutaDescifradoVigenere, resultado);
+            break;
+        }
+        case 7:
             std::cout << "Saliendo...\n";
             break;
         default:
             std::cout << "Opcion invalida.\n";
         }
-    } while (opcion != 6);
+    } while (opcion != 7);
 
     return 0;
 }
