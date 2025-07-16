@@ -1,1 +1,0 @@
-// Archivo main.cpp base con menú (se completará luego)

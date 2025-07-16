@@ -1,1 +1,0 @@
-// Header de Cifrado DES (simulado)
